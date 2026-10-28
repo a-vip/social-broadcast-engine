@@ -10,31 +10,33 @@ from typing import Dict, List, Tuple
 
 # Pre-defined domain profiles with tailored hooks, CTAs, and hashtags
 TOPIC_PROFILES = {
-    "defense_laws": {
+    "ai_ethics_society": {
         "keywords": [
-            "weapon", "weapons", "laws", "autonomous weapon", "drone", "switchblade",
-            "military", "warfare", "defense", "security", "missile", "combat", "strikes",
-            "lethal", "battlefield", "pentagon", "loitering"
+            "ai ethics", "ethics", "ethical", "society", "societal", "human rights", "bias", "fairness",
+            "discrimination", "justice", "dignity", "employment", "healthcare", "privacy",
+            "misinformation", "deepfake", "deepfakes", "liability", "accountability", "oversight",
+            "inclusion", "diversity", "social impact", "colonisers", "nomad", "inequality", "failures"
         ],
-        "primary_tags": ["#AutonomousWeapons", "#LAWS", "#DefenseTech", "#MilitaryAI"],
+        "primary_tags": ["#AIEthics", "#TechAndSociety", "#HumanRights", "#DigitalRights"],
         "hooks": [
-            "Critical analysis on autonomous systems & military defense:",
-            "Operational breakdown of emerging defense capabilities:",
-            "New dossier on autonomous weapon systems & international security:"
+            "Examining the societal implications and ethical frontiers of AI:",
+            "New research on AI ethics, algorithmic accountability, and human rights:",
+            "Reflections on the human, legal, and societal stakes of artificial intelligence:"
         ],
         "ctas": [
-            "Explore the full operational breakdown & legal assessment:",
-            "Read the complete defense dossier & technical specs:",
-            "Examine the full strategic analysis:"
+            "Read the complete ethical analysis & societal breakdown:",
+            "Explore the full research paper on aviperera.com:",
+            "Read the in-depth societal analysis:"
         ]
     },
     "ai_governance": {
         "keywords": [
-            "ai", "artificial intelligence", "governance", "ethics", "safety", "alignment",
+            "ai", "artificial intelligence", "governance", "safety", "alignment",
             "llm", "neural", "deep learning", "agent", "algorithm", "algorithms",
-            "model", "machine learning", "gpt", "frontier", "sovereign", "superintelligence"
+            "model", "machine learning", "gpt", "frontier", "sovereign", "superintelligence",
+            "eu ai act", "act", "regulation", "compact", "un"
         ],
-        "primary_tags": ["#AIGovernance", "#AISafety", "#AIEthics", "#ArtificialIntelligence"],
+        "primary_tags": ["#AIGovernance", "#AISafety", "#TechPolicy", "#AIEthics"],
         "hooks": [
             "Key insights from my latest AI governance research:",
             "New analysis on sovereign algorithms & AI safety frameworks:",
@@ -50,9 +52,9 @@ TOPIC_PROFILES = {
         "keywords": [
             "law", "legal", "ihl", "treaty", "geneva", "sovereignty", "united nations",
             "un", "regulation", "framework", "jurisdiction", "treaties", "customary",
-            "humanitarian", "court", "liability", "compliance", "convention"
+            "humanitarian", "court", "liability", "compliance", "convention", "rule of law"
         ],
-        "primary_tags": ["#InternationalLaw", "#IHL", "#LegalFramework", "#GlobalGovernance"],
+        "primary_tags": ["#InternationalLaw", "#IHL", "#RuleOfLaw", "#LegalFramework"],
         "hooks": [
             "In-depth examination of international legal frameworks:",
             "Evaluating state responsibility under international humanitarian law:",
@@ -62,6 +64,24 @@ TOPIC_PROFILES = {
             "Read the complete legal breakdown & treaty analysis:",
             "Explore the full jurisprudential assessment:",
             "Access the complete legal analysis on aviperera.com:"
+        ]
+    },
+    "defense_laws": {
+        "keywords": [
+            "weapon", "weapons", "laws", "autonomous weapon", "drone", "switchblade",
+            "military", "warfare", "defense", "security", "missile", "combat", "strikes",
+            "lethal", "battlefield", "pentagon", "loitering"
+        ],
+        "primary_tags": ["#LAWS", "#DefenseGovernance", "#InternationalSecurity", "#MilitaryAI"],
+        "hooks": [
+            "Critical analysis on autonomous systems & defense governance:",
+            "Legal and strategic breakdown of emerging defense capabilities:",
+            "New dossier on autonomous weapon systems & international security:"
+        ],
+        "ctas": [
+            "Explore the full operational breakdown & legal assessment:",
+            "Read the complete defense dossier on aviperera.com:",
+            "Examine the full strategic analysis:"
         ]
     },
     "software_tech": {
@@ -128,10 +148,13 @@ def classify_content(title: str, content: str = "", categories: List[str] = None
     for topic, config in TOPIC_PROFILES.items():
         score = 0
         for kw in config["keywords"]:
-            # Word boundary matching to prevent partial substring false positives
             pattern = r"\b" + re.escape(kw) + r"\b"
             matches = len(re.findall(pattern, combined_text))
-            score += matches * (3 if kw in title.lower() else 1)
+            weight = 3 if len(kw) > 3 else 1
+            if kw in title.lower():
+                score += matches * weight * 3
+            else:
+                score += matches * weight
         scores[topic] = score
 
     best_topic = max(scores, key=scores.get) if scores else None

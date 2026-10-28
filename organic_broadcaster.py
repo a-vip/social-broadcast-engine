@@ -89,29 +89,22 @@ def format_curated_axiom(axiom: dict) -> Tuple[str, List[str]]:
     return copy, tags
 
 def format_article_thesis(snippet: str, title: str, categories: List[str]) -> Tuple[str, List[str]]:
-    """Formats an organic thesis statement extracted from an article."""
+    """Formats an organic thesis statement extracted from an article in Avi Perera's voice."""
     topic, tags, _, _ = classify_content(title, snippet, categories)
-    tag_line = " ".join(tags[:3])
+    # Focus tags on AI Ethics & Society
+    ethical_tags = [t for t in tags if "weapon" not in t.lower() and "laws" not in t.lower()]
+    if not ethical_tags:
+        ethical_tags = ["#AIEthics", "#AIGovernance", "#TechPolicy"]
+    tag_line = " ".join(ethical_tags[:3])
     
-    attribution_topic = {
-        "defense_laws": "Autonomous Weapons & Defense Systems",
-        "ai_governance": "AI Governance & Sovereign Algorithms",
-        "international_law": "International Law & Treaty Frameworks",
-        "software_tech": "Software Architecture & Systems Design",
-        "productivity_strategy": "Research Methodology & Strategic Thought"
-    }.get(topic, "Sovereign Systems & Global Tech Policy")
-
-    copy = f"\"{snippet}\"\n\n— Reflections on {attribution_topic}\n\n{tag_line}"
+    copy = f"\"{snippet}\"\n\n— Avi Perera\n\n{tag_line}"
     
-    if len(copy) > 295:
-        copy = f"\"{snippet}\"\n\n— Avi Perera\n\n{tag_line}"
-        
     if len(copy) > 295:
         allowed = 290 - len(f"\n\n— Avi Perera\n\n{tag_line}") - 5
         truncated = snippet[:allowed].rstrip() + "..."
         copy = f"\"{truncated}\"\n\n— Avi Perera\n\n{tag_line}"
 
-    return copy, tags[:3]
+    return copy, ethical_tags[:3]
 
 def post_organic_to_bluesky(identifier: str, password: str, text: str, tags: List[str]) -> bool:
     """Posts pure organic text to Bluesky with hashtag facets (no external link embed)."""
@@ -159,12 +152,13 @@ def post_organic_to_bluesky(identifier: str, password: str, text: str, tags: Lis
 
 def select_next_organic_post(posts: list, state: dict) -> Tuple[Optional[str], Optional[List[str]], Optional[str], str]:
     """
-    Alternates between deep thesis sentences from articles and curated philosophical axioms.
+    Selects a non-repeated philosophical axiom or article thesis.
+    Strictly guarantees that NO post ever repeats.
     Returns: (text, tags, key_hash, post_type)
     """
     posted = state.get("posted_snippets", {})
     
-    # 1. Search recent articles for high-depth thesis sentences
+    # 1. Search recent articles for high-depth thesis sentences (focusing on ethics & governance)
     for post in posts:
         content_source = post.get("content") or post.get("excerpt") or ""
         candidates = extract_high_depth_snippets(content_source, post["title"])
@@ -174,17 +168,15 @@ def select_next_organic_post(posts: list, state: dict) -> Tuple[Optional[str], O
                 copy, tags = format_article_thesis(snippet, post["title"], post.get("categories", []))
                 return copy, tags, s_hash, f"article_thesis (score {score})"
 
-    # 2. Pull from Curated Intellectual & Philosophical Axioms pool
+    # 2. Select an unposted curated axiom reflecting Avi Perera's published research
     for axiom in CURATED_AXIOMS:
         ax_hash = hashlib.sha256(axiom["text"].encode("utf-8")).hexdigest()[:16]
         if ax_hash not in posted:
             copy, tags = format_curated_axiom(axiom)
             return copy, tags, ax_hash, f"curated_axiom ({axiom['category']})"
 
-    # 3. If all posted, recycle oldest curated axiom
-    fallback_axiom = CURATED_AXIOMS[abs(hash(str(state.get("last_run")))) % len(CURATED_AXIOMS)]
-    copy, tags = format_curated_axiom(fallback_axiom)
-    return copy, tags, hashlib.sha256(copy.encode("utf-8")).hexdigest()[:16], "recycled_axiom"
+    # 3. Strict Zero-Repetition Guarantee: If all items have been posted, do NOT recycle or repeat.
+    return None, None, None, "exhausted_zero_repeat"
 
 def main() -> int:
     print("=== Autonomous Organic Insights & Philosophical Broadcaster ===")
@@ -207,7 +199,7 @@ def main() -> int:
     organic_text, tags, item_key, post_type = select_next_organic_post(posts, state)
 
     if not organic_text:
-        print("[!] No candidate insights available.")
+        print("[*] All available candidate insights and axioms have been published. Strict zero-repetition policy active (no duplicate posts).")
         return 0
 
     print(f"\n[Generated Insight Type: {post_type}]")

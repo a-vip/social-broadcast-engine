@@ -14,13 +14,21 @@ from content_classifier import classify_content, build_utm_link
 import organic_broadcaster
 
 class TestContentClassifier(unittest.TestCase):
+    def test_ai_ethics_society_classification(self):
+        title = "AI Ethics Case Studies: Lessons Learned from Real-World Failures"
+        content = "Examining human rights, strict corporate liability, and algorithmic bias under the EU AI Act."
+        topic, tags, hook, cta = classify_content(title, content)
+        self.assertEqual(topic, "ai_ethics_society")
+        self.assertIn("#AIEthics", tags)
+        self.assertIn("#HumanRights", tags)
+
     def test_defense_laws_classification(self):
         title = "Switchblade 300 and 600: Loitering Munitions in Modern Warfare"
         content = "An analysis of autonomous weapon systems and loitering munitions on the battlefield."
         topic, tags, hook, cta = classify_content(title, content)
         self.assertEqual(topic, "defense_laws")
-        self.assertIn("#AutonomousWeapons", tags)
         self.assertIn("#LAWS", tags)
+        self.assertIn("#DefenseGovernance", tags)
         self.assertTrue(len(hook) > 0)
         self.assertTrue(len(cta) > 0)
 
@@ -152,19 +160,19 @@ class TestOrganicBroadcaster(unittest.TestCase):
     def test_score_sentence_depth(self):
         from intellectual_axioms import score_sentence_depth
         shallow = "The Unitree H1 and H2 are full-size bipedal humanoid robots built by Unitree Robotics of Hangzhou, China."
-        deep = "When autonomous systems compress kinetic decision cycles from hours into milliseconds, human deliberation becomes a tactical vulnerability."
+        deep = "When algorithmic systems impact fundamental human rights, accountability and strict liability cannot be delegated away."
         self.assertLess(score_sentence_depth(shallow), 0)
         self.assertGreater(score_sentence_depth(deep), 20)
 
     def test_extract_high_depth_snippets(self):
         sample_html = (
-            "<p>Autonomous weapons are manufactured by various defense contractors. "
-            "The fundamental dilemma of international humanitarian law in algorithmic warfare demands clear accountability frameworks. "
+            "<p>Robots are manufactured by various tech startups. "
+            "When algorithmic systems are deployed in high-stakes domains like healthcare, explainability is a non-derogable procedural right. "
             "Click here to subscribe. Cookie notice.</p>"
         )
         candidates = organic_broadcaster.extract_high_depth_snippets(sample_html, "Title")
         self.assertTrue(len(candidates) > 0)
-        self.assertIn("fundamental dilemma", candidates[0][0])
+        self.assertIn("procedural right", candidates[0][0])
 
     def test_select_next_organic_post(self):
         state = {"posted_snippets": {}}
@@ -192,12 +200,12 @@ class TestOrganicBroadcaster(unittest.TestCase):
         self.assertTrue(success)
 
     def test_format_article_thesis(self):
-        snippet = "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after."
-        title = "Switchblade 300 and 600"
-        copy, tags = organic_broadcaster.format_article_thesis(snippet, title, ["Defense", "LAWS"])
+        snippet = "When algorithmic systems impact fundamental rights, human oversight cannot be compromised."
+        title = "AI Ethics and Human Rights"
+        copy, tags = organic_broadcaster.format_article_thesis(snippet, title, ["Ethics", "Society"])
         self.assertLessEqual(len(copy), 295)
-        self.assertIn("— Reflections on", copy)
-        self.assertIn("#AutonomousWeapons", copy)
+        self.assertIn("— Avi Perera", copy)
+        self.assertIn("#AIEthics", tags)
 
 if __name__ == "__main__":
     unittest.main()

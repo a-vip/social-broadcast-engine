@@ -1,99 +1,104 @@
 #!/usr/bin/env python3
 """
 intellectual_axioms.py
-Curated high-level philosophical insights, strategic paradoxes,
-and governance axioms reflecting the research of Avi Perera.
+Curated high-level philosophical insights, ethical frameworks,
+and societal analysis reflecting the published writings and research of Avi Perera.
+Focuses strictly on AI Ethics, Society, Legal Liability, Human Rights, and Governance.
 """
 
 from typing import Dict, List
 
-# High-level intellectual statements, strategic paradoxes, and foundational axioms
+# Curated statements directly reflecting Avi Perera's research, essays, and published stances
 CURATED_AXIOMS: List[Dict[str, str]] = [
     {
-        "category": "ai_governance",
-        "text": "Sovereignty in the 21st century is no longer defined strictly by territorial borders, but by the autonomy of a nation's compute stack and algorithmic governance.",
-        "tags": "#AIGovernance #Sovereignty #TechPolicy #Geopolitics"
+        "category": "ai_ethics_liability",
+        "text": "The era of voluntary ethical guidelines for artificial intelligence is officially over. We have entered the era of strict enforcement, where software and autonomous systems are classified as products with non-negotiable legal liability.",
+        "tags": "#AIEthics #ProductLiability #TechPolicy #AIAct"
     },
     {
-        "category": "defense_laws",
-        "text": "When autonomous systems compress kinetic decision cycles from hours into milliseconds, human deliberation ceases to be an operational virtue and becomes a tactical vulnerability. This is the central moral crisis of modern defense.",
-        "tags": "#AutonomousWeapons #LAWS #MilitaryAI #DefenseTech"
+        "category": "ai_governance",
+        "text": "When Microsoft’s Tay chatbot generated hate speech within 24 hours of launch in 2016, it was treated as an experiment gone wrong. Today, that exact failure is a corporate liability and a breach of human rights compliance.",
+        "tags": "#AIEthics #AlgorithmicBias #CorporateGovernance #TechLaw"
     },
     {
         "category": "international_law",
-        "text": "The fundamental dilemma of international humanitarian law in algorithmic warfare: accountability cannot be distributed to software, yet human command chains increasingly serve as rubber stamps for machine outputs.",
-        "tags": "#InternationalLaw #IHL #GenevaConventions #AIEthics"
+        "text": "Unlike trade rules that prioritize market safety, genuine AI governance must center on human rights, democracy, and the rule of law. If a system degrades human agency, technical optimization cannot redeem it.",
+        "tags": "#HumanRights #RuleOfLaw #AIGovernance #CouncilOfEurope"
     },
     {
-        "category": "ai_governance",
-        "text": "Regulation naturally advances at the speed of judicial precedent, while artificial intelligence advances at the speed of compute. Bridging this institutional latency is the defining challenge of our era.",
-        "tags": "#AIGovernance #Institutions #TechRegulation #LawTech"
+        "category": "institutional_governance",
+        "text": "The defining institutional challenge of our generation is latency: regulation and jurisprudence advance at the pace of precedent, while compute and model capabilities advance exponentially.",
+        "tags": "#AIGovernance #InstitutionalDesign #TechPolicy #PublicLaw"
     },
     {
-        "category": "defense_laws",
-        "text": "Loitering munitions and autonomous swarms do not merely change tactical engagements; they dismantle the traditional economic doctrine of air defense by making precision mass cheaper than precision interception.",
-        "tags": "#AutonomousWeapons #DefenseTech #MilitaryStrategy #SecurityStudies"
+        "category": "society_digital_dignity",
+        "text": "We often mistake computational velocity for cognitive depth. An algorithmic model can optimize within boundaries infinitely faster than a human, but it cannot conceptualize the moral necessity of the boundary itself.",
+        "tags": "#AIEthics #PhilosophyOfTech #Epistemology #HumanValues"
     },
     {
-        "category": "philosophy_tech",
-        "text": "We often mistake computational velocity for cognitive depth. An algorithm can optimize within defined boundaries infinitely faster than a human, but it cannot conceptualize the moral necessity of the boundary itself.",
-        "tags": "#PhilosophyOfTech #AIEthics #ArtificialIntelligence #Epistemology"
+        "category": "ai_ethics_fairness",
+        "text": "Algorithmic bias is rarely a technical bug; it is an evidentiary mirror of historical systemic disparities codified into training distributions. Correcting it requires structural intervention, not cosmetic re-weighting.",
+        "tags": "#AIEthics #AlgorithmicFairness #DataJustice #SocietalImpact"
     },
     {
-        "category": "international_law",
-        "text": "If autonomous weapons operate below the threshold of meaningful human control, the doctrine of state responsibility must shift from intent-based fault to strict systemic liability under customary international law.",
-        "tags": "#InternationalLaw #IHL #LegalTheory #AutonomousSystems"
+        "category": "sovereign_compute",
+        "text": "Sovereignty in the 21st century is defined not merely by territorial borders, but by whether a society retains the democratic capacity to inspect, contest, and veto the algorithmic systems governing public life.",
+        "tags": "#DigitalSovereignty #AIGovernance #DemocraticInstitutions #PublicPolicy"
     },
     {
-        "category": "geopolitics_compute",
-        "text": "Access to advanced semiconductor fabrication is the new maritime chokepoint. The geopolitical struggles of the next fifty years will look less like territorial conquest and more like silicon containment.",
-        "tags": "#Geopolitics #Semiconductors #NationalSecurity #TechPolicy"
+        "category": "un_global_compact",
+        "text": "Global AI governance requires an impartial scientific consensus comparable to the IPCC for climate. Without shared empirical risk benchmarks, geopolitical competition will inevitably drive regulatory race-to-the-bottom dynamics.",
+        "tags": "#UN #GlobalGovernance #AISafety #TechDiplomacy"
     },
     {
-        "category": "ai_governance",
-        "text": "Alignment is not merely a technical benchmark between a prompt and a response; it is an institutional covenant between autonomous intelligence and human constitutional democratic order.",
-        "tags": "#AISafety #AIGovernance #ConstitutionalAI #PublicPolicy"
+        "category": "online_safety_verification",
+        "text": "Combating generative synthetic deception and deepfakes requires moving beyond reactive detection toward statutory duties of care and cryptographic provenance at the point of creation.",
+        "tags": "#OnlineSafety #Deepfakes #DigitalIntegrity #MediaPolicy"
     },
     {
-        "category": "defense_laws",
-        "text": "The greatest escalation hazard in algorithmic conflict is not malice, but mutual automated reaction: autonomous systems triggering automated countermeasures before human leaders recognize the threshold has been crossed.",
-        "tags": "#AutonomousWeapons #LAWS #EscalationControl #GlobalSecurity"
+        "category": "digital_economy_society",
+        "text": "The rapid expansion of the digital knowledge economy frequently masks new asymmetries between capital-exporting hubs and host communities. Sustainable tech policy must account for local socioeconomic sovereignty.",
+        "tags": "#DigitalEconomy #TechSociety #GlobalSouth #Sovereignty"
     },
     {
-        "category": "philosophy_tech",
-        "text": "True technological sovereignty is not autarky—it is the institutional capacity to comprehend, interrogate, and veto the algorithmic decisions that shape public life.",
-        "tags": "#Sovereignty #DigitalRights #AIGovernance #PublicLaw"
+        "category": "research_epistemology",
+        "text": "In an era of hyper-abundant synthetic text, genuine intellectual value accrues to primary source verification, rigorous cross-jurisdictional comparison, and independent epistemic critique.",
+        "tags": "#AcademicResearch #CriticalThinking #Epistemology #HigherEd"
     },
     {
-        "category": "strategy_productivity",
-        "text": "In an era of hyper-abundant algorithmic synthesis, original research value accrues almost entirely to deep synthesis, primary source verification, and independent epistemic courage.",
-        "tags": "#AcademicResearch #DeepWork #Epistemology #KnowledgeArchitecture"
+        "category": "ai_ethics_healthcare",
+        "text": "When algorithmic systems are deployed in high-stakes domains like healthcare or credit, explainability is not an engineering luxury—it is a non-derogable procedural right.",
+        "tags": "#AIEthics #ExplainableAI #HealthcareTech #FundamentalRights"
     }
 ]
 
-# Keywords that indicate profound analytical depth in article text
+# Keywords indicating deep philosophical, ethical, and societal reflection
 DEPTH_INDICATORS = [
-    "sovereignty", "sovereign", "dilemma", "paradox", "liability", "doctrine",
-    "threshold", "governance", "framework", "precedent", "asymmetry", "jurisdiction",
-    "accountability", "autonomy", "autonomous", "ethical", "velocity", "institutional", "moral",
-    "compute", "power", "treaty", "compliance", "systemic", "escalation", "consequence",
-    "imperative", "normative", "deliberation", "kinetic", "strategic", "vulnerability"
+    "ethics", "ethical", "society", "societal", "governance", "sovereignty", "sovereign",
+    "liability", "framework", "precedent", "jurisdiction", "accountability", "human rights",
+    "democracy", "rule of law", "bias", "fairness", "transparency", "oversight", "dignity",
+    "epistemology", "epistemic", "institutional", "compact", "convention", "verification",
+    "normative", "deliberation", "imperative", "asymmetry", "disparities"
 ]
 
-# Words that indicate purely descriptive, logistical, or factual boilerplate (to be skipped)
-SHALLOW_INDICATORS = [
-    "built by", "manufactured by", "founded in", "headquartered", "specs include",
-    "available for", "weighs approximately", "released on", "dimensions are",
+# Keywords indicating hardware, kinetic weapons, or shallow commercial specs to strictly deprioritize
+SHALLOW_OR_WEAPONS_INDICATORS = [
+    "missile", "drone specs", "strikes", "kill chain", "loitering munition",
+    "ammunition", "battlefield drone", "switchblade", "unitree b2", "v-bat",
+    "built by", "manufactured by", "founded in", "headquartered in", "specs include",
     "battery life", "click here", "read more", "subscribe", "cookie", "copyright",
-    "affiliate link", "disclaimer", "download the app"
+    "affiliate link", "disclaimer", "dimensions are", "weighs approximately", "payload capacity"
 ]
 
 def score_sentence_depth(sentence: str) -> int:
-    """Scores a sentence based on philosophical, legal, and strategic resonance."""
+    """
+    Scores a sentence prioritizing AI Ethics, Societal impact, and Legal frameworks,
+    while penalizing kinetic weapon specs or shallow commercial boilerplate.
+    """
     low = sentence.lower()
     
-    # Check for shallow disqualifiers
-    if any(shallow in low for shallow in SHALLOW_INDICATORS):
+    # Penalize weapons and shallow specs
+    if any(shallow in low for shallow in SHALLOW_OR_WEAPONS_INDICATORS):
         return -50
         
     score = 0
@@ -101,15 +106,19 @@ def score_sentence_depth(sentence: str) -> int:
     for word in words:
         clean_w = word.strip(".,;:\"'()?!")
         if clean_w in DEPTH_INDICATORS:
-            score += 10
+            score += 12
             
-    # Bonus for thesis-like structure (e.g. contains 'must', 'cannot', 'demands', 'requires')
-    if any(modal in low for modal in [" must ", " cannot ", " demands ", " requires ", " fundamentally ", " precisely because "]):
+    # Bonus for strong philosophical assertions
+    if any(phrase in low for phrase in [
+        " human rights", " rule of law", " strictly liable", " must be ",
+        " fundamental ", " democratic ", " accountability ", " institutional ",
+        " procedural right", " genuine "
+    ]):
         score += 15
 
-    # Penalize overly short or overly long sentences
+    # Penalize sentences outside the ideal readable social length (75 to 220 chars)
     length = len(sentence)
-    if length < 80 or length > 220:
-        score -= 20
+    if length < 75 or length > 220:
+        score -= 25
 
     return score
