@@ -1,0 +1,54 @@
+name: Autonomous Organic Insights Broadcaster
+
+on:
+  schedule:
+    # Run twice daily, offset by 4 hours from the link syndicator (04:00, 16:00 UTC)
+    - cron: '0 4,16 * * *'
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Run in preview/dry-run mode without publishing'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  organic_post:
+    name: Broadcast Organic Insights & Quotes
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Unit Tests
+        run: |
+          python -m unittest discover tests
+
+      - name: Execute Organic Broadcaster
+        env:
+          BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
+          BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          MASTODON_INSTANCE_URL: ${{ secrets.MASTODON_INSTANCE_URL }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+        run: |
+          FLAGS=""
+          if [ "${{ inputs.dry_run }}" = "true" ]; then
+            FLAGS="--dry-run"
+          fi
+          python organic_broadcaster.py $FLAGS
+
+      - name: Commit Organic State
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -A state/
+          git diff --staged --quiet || (git commit -m "chore(organic): update snippet history" && git push)

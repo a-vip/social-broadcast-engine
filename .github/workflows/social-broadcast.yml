@@ -1,13 +1,13 @@
-name: Autonomous Social Broadcast Engine
+name: Autonomous Social Link Syndicator
 
 on:
   schedule:
-    # Run every 4 hours
-    - cron: '0 */4 * * *'
+    # Run every 8 hours (00:00, 08:00, 16:00 UTC)
+    - cron: '0 */8 * * *'
   workflow_dispatch:
     inputs:
       dry_run:
-        description: 'Run in dry-run mode without publishing'
+        description: 'Run in preview/dry-run mode without publishing'
         required: false
         type: boolean
         default: false
@@ -16,8 +16,8 @@ permissions:
   contents: write
 
 jobs:
-  broadcast:
-    name: Syndicate New Publications to Social Networks
+  syndicate:
+    name: Syndicate Publications to Bluesky & Mastodon
     runs-on: ubuntu-latest
 
     steps:
@@ -33,10 +33,12 @@ jobs:
         run: |
           python -m unittest discover tests
 
-      - name: Broadcast Publications
+      - name: Execute Syndication Engine
         env:
           BSKY_IDENTIFIER: ${{ secrets.BSKY_IDENTIFIER }}
           BSKY_APP_PASSWORD: ${{ secrets.BSKY_APP_PASSWORD }}
+          MASTODON_INSTANCE_URL: ${{ secrets.MASTODON_INSTANCE_URL }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
           COMMUNITY_WEBHOOK_URL: ${{ secrets.COMMUNITY_WEBHOOK_URL }}
         run: |
           FLAGS=""
@@ -45,9 +47,9 @@ jobs:
           fi
           python broadcast_engine.py $FLAGS
 
-      - name: Commit State
+      - name: Commit Syndication State
         run: |
           git config --global user.name 'github-actions[bot]'
           git config --global user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add -A state/
-          git diff --staged --quiet || (git commit -m "chore(social): update syndicated history" && git push)
+          git diff --staged --quiet || (git commit -m "chore(syndication): update syndicated history" && git push)

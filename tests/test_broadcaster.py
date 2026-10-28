@@ -1,25 +1,123 @@
+#!/usr/bin/env python3
+"""
+Unit test suite for social-broadcast-engine.
+Validates multi-topic content classification, Bluesky facets,
+Mastodon REST endpoints, length safety, and RSS ingestion.
+"""
+
 import unittest
-import os
-import tempfile
-import json
 from unittest.mock import patch, MagicMock
+import json
+
 import broadcast_engine
+from content_classifier import classify_content, build_utm_link
+import organic_broadcaster
 
-class TestBroadcaster(unittest.TestCase):
+class TestContentClassifier(unittest.TestCase):
+    def test_defense_laws_classification(self):
+        title = "Switchblade 300 and 600: Loitering Munitions in Modern Warfare"
+        content = "An analysis of autonomous weapon systems and loitering munitions on the battlefield."
+        topic, tags, hook, cta = classify_content(title, content)
+        self.assertEqual(topic, "defense_laws")
+        self.assertIn("#AutonomousWeapons", tags)
+        self.assertIn("#LAWS", tags)
+        self.assertTrue(len(hook) > 0)
+        self.assertTrue(len(cta) > 0)
+
+    def test_ai_governance_classification(self):
+        title = "Sovereign Algorithms: Institutional Design for Frontier AI Governance"
+        content = "Exploring AI safety, alignment benchmarks, and superintelligence policy."
+        topic, tags, hook, cta = classify_content(title, content)
+        self.assertEqual(topic, "ai_governance")
+        self.assertIn("#AIGovernance", tags)
+        self.assertIn("#AISafety", tags)
+
+    def test_international_law_classification(self):
+        title = "The Geneva Conventions and State Responsibility in Cyber Warfare"
+        content = "Evaluating international humanitarian law (IHL) and treaty compliance."
+        topic, tags, hook, cta = classify_content(title, content)
+        self.assertEqual(topic, "international_law")
+        self.assertIn("#InternationalLaw", tags)
+        self.assertIn("#IHL", tags)
+
+    def test_software_tech_classification(self):
+        title = "Building a Fullstack Dashboard with Python and React"
+        content = "Architecture patterns for high performance web applications and GitHub actions."
+        topic, tags, hook, cta = classify_content(title, content)
+        self.assertEqual(topic, "software_tech")
+        self.assertIn("#SoftwareEngineering", tags)
+
+    def test_utm_link_builder(self):
+        link = "https://aviperera.com/switchblade-300-600/"
+        bsky_link = build_utm_link(link, "bluesky")
+        masto_link = build_utm_link(link, "mastodon")
+        self.assertIn("utm_source=bluesky", bsky_link)
+        self.assertIn("utm_source=mastodon", masto_link)
+        self.assertTrue(bsky_link.startswith("https://aviperera.com/switchblade-300-600/"))
+
+class TestBroadcasterEngine(unittest.TestCase):
     def test_clean_text(self):
-        html_input = "Hello &amp; welcome to &#8217;AI Governance&#8217; <p>Test</p>"
-        cleaned = broadcast_engine.clean_text(html_input)
-        self.assertEqual(cleaned, "Hello & welcome to ’AI Governance’ Test")
+        raw = "<p>Hello &amp; welcome to &#8217;AI Governance&#8217;!</p>"
+        cleaned = broadcast_engine.clean_text(raw)
+        self.assertEqual(cleaned, "Hello & welcome to ’AI Governance’!")
 
-    def test_format_social_copy(self):
+    def test_bluesky_length_limit(self):
+        post = {
+            "title": "Comprehensive Legal Framework Analysis of Autonomous Loitering Munitions and Emerging Treaty Obligations Across International Humanitarian Law and State Sovereignty",
+            "link": "https://aviperera.com/very-long-article-slug-about-laws-and-treaties-2026/",
+            "excerpt": "This long excerpt discusses multiple implications of autonomous weapon systems and AI governance in contemporary geopolitical dynamics.",
+            "categories": ["Law", "AI"]
+        }
+        text, link, tags = broadcast_engine.format_social_copy(post, "bluesky")
+        # Bluesky hard limit is 300 characters
+        self.assertLessEqual(len(text), 295)
+        self.assertIn(link, text)
+        for t in tags:
+            self.assertIn(t, text)
+
+    def test_mastodon_length_limit(self):
         post = {
             "title": "Switchblade 300 and 600",
-            "link": "https://aviperera.com/switchblade-300-600/"
+            "link": "https://aviperera.com/switchblade-300-600/",
+            "excerpt": "A deep dive into loitering munitions and modern defense architectures.",
+            "categories": ["Defense"]
         }
-        copy = broadcast_engine.format_social_copy(post)
-        self.assertIn("Switchblade 300 and 600", copy)
-        self.assertIn("https://aviperera.com/switchblade-300-600/", copy)
-        self.assertIn("#AIGovernance", copy)
+        text, link, tags = broadcast_engine.format_social_copy(post, "mastodon")
+        self.assertLessEqual(len(text), 490)
+        self.assertIn(link, text)
+
+    def test_bluesky_facets_byte_offsets(self):
+        text = "Check this: https://aviperera.com/test #AIGovernance #LAWS"
+        link = "https://aviperera.com/test"
+        tags = ["#AIGovernance", "#LAWS"]
+        facets = broadcast_engine.build_bluesky_facets(text, link, tags)
+        self.assertTrue(len(facets) >= 3)
+        
+        # Verify link facet
+        link_facet = [f for f in facets if f["features"][0].get("$type") == "app.bsky.feed.post#link"][0]
+        start = link_facet["index"]["byteStart"]
+        end = link_facet["index"]["byteEnd"]
+        extracted_link = text.encode("utf-8")[start:end].decode("utf-8")
+        self.assertEqual(extracted_link, link)
+
+        # Verify tag facets
+        tag_facets = [f for f in facets if f["features"][0].get("$type") == "app.bsky.feed.post#tag"]
+        self.assertEqual(len(tag_facets), 2)
+
+    @patch("urllib.request.urlopen")
+    def test_post_to_mastodon(self, mock_urlopen):
+        mock_resp = MagicMock()
+        mock_resp.getcode.return_value = 200
+        mock_resp.read.return_value = json.dumps({"url": "https://mastodon.social/@avi/123"}).encode("utf-8")
+        mock_urlopen.return_value.__enter__.return_value = mock_resp
+
+        success = broadcast_engine.post_to_mastodon(
+            instance_url="https://mastodon.social",
+            access_token="fake_token",
+            text="New research test",
+            idempotency_key="unique_hash_123"
+        )
+        self.assertTrue(success)
 
     @patch("urllib.request.urlopen")
     def test_post_to_webhook(self, mock_urlopen):
@@ -27,13 +125,37 @@ class TestBroadcaster(unittest.TestCase):
         mock_resp.getcode.return_value = 204
         mock_urlopen.return_value.__enter__.return_value = mock_resp
 
-        result = broadcast_engine.post_to_webhook(
+        success = broadcast_engine.post_to_webhook(
             webhook_url="https://discord.com/api/webhooks/mock/123",
-            title="Test Post",
-            link="https://aviperera.com/test/",
-            excerpt="Test Excerpt"
+            title="Test",
+            link="https://aviperera.com",
+            excerpt="Excerpt",
+            tags=["#AIGovernance"]
         )
-        self.assertTrue(result)
+        self.assertTrue(success)
+
+class TestOrganicBroadcaster(unittest.TestCase):
+    def test_extract_meaningful_snippets(self):
+        sample_html = (
+            "<p>Autonomous weapons will dramatically change future conflict scenarios. "
+            "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after. "
+            "Click here to subscribe. Cookie notice.</p>"
+        )
+        snippets = organic_broadcaster.extract_meaningful_snippets(sample_html, "Title")
+        self.assertTrue(len(snippets) > 0)
+        self.assertIn("The velocity of autonomous decision-making", snippets[0])
+        # Ensure 'Click here' was skipped
+        for s in snippets:
+            self.assertNotIn("cookie", s.lower())
+            self.assertNotIn("click here", s.lower())
+
+    def test_format_organic_post(self):
+        snippet = "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after."
+        title = "Switchblade 300 and 600"
+        copy, tags = organic_broadcaster.format_organic_post(snippet, title, ["Defense", "LAWS"])
+        self.assertLessEqual(len(copy), 295)
+        self.assertIn("— Insights on", copy)
+        self.assertIn("#AutonomousWeapons", copy)
 
 if __name__ == "__main__":
     unittest.main()
