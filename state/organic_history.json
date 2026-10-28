@@ -14,7 +14,12 @@
       "text": "Sovereignty in the 21st century is no longer defined strictly by territorial borders, but by the autonomy of a nation's ",
       "type": "curated_axiom (ai_governance)",
       "timestamp": "2026-10-28T02:56:01.429104+00:00"
+    },
+    "2c1a4644ea6eb050": {
+      "text": "The era of voluntary ethical guidelines for artificial intelligence is officially over. We have entered the era of stric",
+      "type": "curated_axiom (ai_ethics_liability)",
+      "timestamp": "2026-10-28T10:16:38.658994+00:00"
     }
   },
-  "last_run": "2026-10-28T02:56:01.429104+00:00"
+  "last_run": "2026-10-28T10:16:38.658994+00:00"
 }
