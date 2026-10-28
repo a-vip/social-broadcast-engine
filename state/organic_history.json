@@ -19,7 +19,12 @@
       "text": "The era of voluntary ethical guidelines for artificial intelligence is officially over. We have entered the era of stric",
       "type": "curated_axiom (ai_ethics_liability)",
       "timestamp": "2026-10-28T10:16:38.658994+00:00"
+    },
+    "6d08c710c33ea254": {
+      "text": "\"While impressive, this sequential generation is a fundamental architectural bottleneck.\"\n\n— Avi Perera\n\n#AIGovernance #",
+      "type": "article_thesis (score 15)",
+      "timestamp": "2026-10-28T17:48:54.789827+00:00"
     }
   },
-  "last_run": "2026-10-28T10:16:38.658994+00:00"
+  "last_run": "2026-10-28T17:48:54.789827+00:00"
 }
