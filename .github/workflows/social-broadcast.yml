@@ -2,8 +2,8 @@ name: Autonomous Social Link Syndicator
 
 on:
   schedule:
-    # Run every 8 hours (00:00, 08:00, 16:00 UTC)
-    - cron: '0 */8 * * *'
+    # Run every 8 hours at 00:00, 08:00, 16:00 UTC (alternating with organic posts)
+    - cron: '0 0,8,16 * * *'
   workflow_dispatch:
     inputs:
       dry_run:

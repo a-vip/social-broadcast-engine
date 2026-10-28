@@ -2,8 +2,8 @@ name: Autonomous Organic Insights Broadcaster
 
 on:
   schedule:
-    # Run twice daily, offset by 4 hours from the link syndicator (04:00, 16:00 UTC)
-    - cron: '0 4,16 * * *'
+    # Run 3 times daily at 04:00, 12:00, 20:00 UTC (exact 4-hour offset from link syndicator)
+    - cron: '0 4,12,20 * * *'
   workflow_dispatch:
     inputs:
       dry_run:

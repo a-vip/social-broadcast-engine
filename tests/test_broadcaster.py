@@ -149,26 +149,37 @@ class TestBroadcasterEngine(unittest.TestCase):
         self.assertTrue(success)
 
 class TestOrganicBroadcaster(unittest.TestCase):
-    def test_extract_meaningful_snippets(self):
+    def test_score_sentence_depth(self):
+        from intellectual_axioms import score_sentence_depth
+        shallow = "The Unitree H1 and H2 are full-size bipedal humanoid robots built by Unitree Robotics of Hangzhou, China."
+        deep = "When autonomous systems compress kinetic decision cycles from hours into milliseconds, human deliberation becomes a tactical vulnerability."
+        self.assertLess(score_sentence_depth(shallow), 0)
+        self.assertGreater(score_sentence_depth(deep), 20)
+
+    def test_extract_high_depth_snippets(self):
         sample_html = (
-            "<p>Autonomous weapons will dramatically change future conflict scenarios. "
-            "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after. "
+            "<p>Autonomous weapons are manufactured by various defense contractors. "
+            "The fundamental dilemma of international humanitarian law in algorithmic warfare demands clear accountability frameworks. "
             "Click here to subscribe. Cookie notice.</p>"
         )
-        snippets = organic_broadcaster.extract_meaningful_snippets(sample_html, "Title")
-        self.assertTrue(len(snippets) > 0)
-        self.assertIn("The velocity of autonomous decision-making", snippets[0])
-        # Ensure 'Click here' was skipped
-        for s in snippets:
-            self.assertNotIn("cookie", s.lower())
-            self.assertNotIn("click here", s.lower())
+        candidates = organic_broadcaster.extract_high_depth_snippets(sample_html, "Title")
+        self.assertTrue(len(candidates) > 0)
+        self.assertIn("fundamental dilemma", candidates[0][0])
 
-    def test_format_organic_post(self):
+    def test_select_next_organic_post(self):
+        state = {"posted_snippets": {}}
+        text, tags, key_hash, ptype = organic_broadcaster.select_next_organic_post([], state)
+        self.assertTrue(len(text) > 20)
+        self.assertLessEqual(len(text), 295)
+        self.assertTrue(len(tags) > 0)
+        self.assertIn("curated_axiom", ptype)
+
+    def test_format_article_thesis(self):
         snippet = "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after."
         title = "Switchblade 300 and 600"
-        copy, tags = organic_broadcaster.format_organic_post(snippet, title, ["Defense", "LAWS"])
+        copy, tags = organic_broadcaster.format_article_thesis(snippet, title, ["Defense", "LAWS"])
         self.assertLessEqual(len(copy), 295)
-        self.assertIn("— Insights on", copy)
+        self.assertIn("— Reflections on", copy)
         self.assertIn("#AutonomousWeapons", copy)
 
 if __name__ == "__main__":

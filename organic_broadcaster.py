@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 organic_broadcaster.py
-Autonomous Organic Thought-Leadership & Snippet Broadcaster for aviperera.com.
-Selects key quotes, insights, and philosophical/policy reflections from publications
-and broadcasts pure organic text posts (no direct links) to Bluesky and Mastodon.
-This builds high organic engagement and algorithmic reach across feeds.
+Autonomous Organic Thought-Leadership & Philosophical Insights Broadcaster for aviperera.com.
+Selects high-level philosophical axioms, strategic paradoxes, and deep article theses
+and broadcasts pure organic text posts (no links) to Bluesky and Mastodon.
+Builds intellectual authority and algorithmic feed reach without link fatigue.
 """
 
 import os
@@ -12,19 +12,17 @@ import sys
 import json
 import re
 import hashlib
-import urllib.request
-import urllib.error
-import xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 from typing import Dict, List, Optional, Any, Tuple
 
 from content_classifier import classify_content
+from intellectual_axioms import CURATED_AXIOMS, score_sentence_depth
 from broadcast_engine import (
     clean_text,
-    fetch_from_rss,
-    fetch_from_wp_api,
+    fetch_latest_posts,
     build_bluesky_facets,
-    post_to_mastodon
+    post_to_mastodon,
+    normalize_mastodon_url
 )
 
 if sys.stdout and hasattr(sys.stdout, "reconfigure"):
@@ -52,60 +50,58 @@ def save_organic_state(state: dict):
     with open(ORGANIC_STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
 
-def extract_meaningful_snippets(content: str, title: str) -> List[str]:
-    """Extracts coherent, high-value insight sentences from publication text."""
+def extract_high_depth_snippets(content: str, title: str) -> List[Tuple[str, int]]:
+    """Extracts and scores sentences based on analytical and philosophical depth."""
     text = clean_text(content)
     if not text:
         return []
 
-    # Split by sentence terminators
     raw_sentences = re.split(r"(?<=[.!?])\s+", text)
-    candidate_snippets = []
+    candidates = []
 
     for s in raw_sentences:
         s_clean = s.strip().strip("\"'“”‘’")
-        length = len(s_clean)
-        # We want punchy, insightful sentences (80 to 200 characters)
-        if 75 <= length <= 210:
-            # Exclude navigational or metadata text
-            low = s_clean.lower()
-            if any(skip in low for skip in ["click here", "read more", "subscribe", "cookie", "http", "published", "copyright"]):
-                continue
-            # Ensure sentence contains substantive punctuation and words
-            if s_clean[0].isupper() and (s_clean.endswith(".") or s_clean.endswith("!") or s_clean.endswith("?")):
-                candidate_snippets.append(s_clean)
+        if not s_clean or not s_clean[0].isupper():
+            continue
+        depth_score = score_sentence_depth(s_clean)
+        # Require a positive depth score (filtering out factual specs and shallow definitions)
+        if depth_score >= 15:
+            candidates.append((s_clean, depth_score))
 
-    # If no long sentence matched, craft an insight summary from the title & excerpt
-    if not candidate_snippets and text:
-        short_summary = text[:180].rsplit(" ", 1)[0] + "."
-        candidate_snippets.append(short_summary)
+    # Sort candidates by highest depth score descending
+    candidates.sort(key=lambda x: x[1], reverse=True)
+    return candidates
 
-    return candidate_snippets
-
-def format_organic_post(snippet: str, title: str, categories: List[str]) -> Tuple[str, List[str]]:
-    """Formats an organic quote post with topic-specific hashtags and attribution."""
-    topic, tags, _, _ = classify_content(title, snippet, categories)
-    tag_line = " ".join(tags[:3]) # 2-3 most relevant tags
+def format_curated_axiom(axiom: dict) -> Tuple[str, List[str]]:
+    """Formats a curated philosophical or strategic axiom."""
+    text = axiom["text"].strip()
+    tags_str = axiom.get("tags", "#AIGovernance #InternationalLaw")
+    tags = [t.strip() for t in tags_str.split() if t.startswith("#")]
     
-    # Structure:
-    # "Quote snippet here."
-    # 
-    # — From the research on [Topic/Title]
-    # 
-    # #Tags
+    copy = f"{text}\n\n{tags_str}"
+    if len(copy) > 295:
+        # Compact tags if needed to stay under Bluesky 300-char limit
+        compact_tags = " ".join(tags[:3])
+        copy = f"{text}\n\n{compact_tags}"
+
+    return copy, tags
+
+def format_article_thesis(snippet: str, title: str, categories: List[str]) -> Tuple[str, List[str]]:
+    """Formats an organic thesis statement extracted from an article."""
+    topic, tags, _, _ = classify_content(title, snippet, categories)
+    tag_line = " ".join(tags[:3])
+    
     attribution_topic = {
-        "defense_laws": "Autonomous Weapon Systems & Defense Tech",
+        "defense_laws": "Autonomous Weapons & Defense Systems",
         "ai_governance": "AI Governance & Sovereign Algorithms",
-        "international_law": "International Humanitarian Law & Treaty Frameworks",
-        "software_tech": "Software Architecture & Systems Engineering",
-        "productivity_strategy": "Research Strategy & Analytical Frameworks"
+        "international_law": "International Law & Treaty Frameworks",
+        "software_tech": "Software Architecture & Systems Design",
+        "productivity_strategy": "Research Methodology & Strategic Thought"
     }.get(topic, "Sovereign Systems & Global Tech Policy")
 
-    copy = f"\"{snippet}\"\n\n— Insights on {attribution_topic}\n\n{tag_line}"
+    copy = f"\"{snippet}\"\n\n— Reflections on {attribution_topic}\n\n{tag_line}"
     
-    # Bluesky character limit safety check (300 chars max)
     if len(copy) > 295:
-        # Compact attribution
         copy = f"\"{snippet}\"\n\n— Avi Perera\n\n{tag_line}"
         
     if len(copy) > 295:
@@ -121,7 +117,6 @@ def post_organic_to_bluesky(identifier: str, password: str, text: str, tags: Lis
         return False
         
     try:
-        # 1. Authenticate & Create Session
         auth_url = "https://bsky.social/xrpc/com.atproto.server.createSession"
         auth_payload = json.dumps({"identifier": identifier, "password": password}).encode("utf-8")
         auth_req = urllib.request.Request(auth_url, data=auth_payload, headers={"Content-Type": "application/json"})
@@ -133,10 +128,8 @@ def post_organic_to_bluesky(identifier: str, password: str, text: str, tags: Lis
         if not access_jwt or not did:
             return False
 
-        # 2. Build tag facets
         facets = build_bluesky_facets(text, link="", tags=tags)
 
-        # 3. Post pure organic record (no external embed)
         record_url = "https://bsky.social/xrpc/com.atproto.repo.createRecord"
         now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%S.000Z")
         record_payload = {
@@ -162,22 +155,43 @@ def post_organic_to_bluesky(identifier: str, password: str, text: str, tags: Lis
         print(f"[!] Bluesky organic post failed: {e}")
         return False
 
-def main() -> int:
-    print("=== Autonomous Organic Insights & Snippet Broadcaster ===")
-    state = load_organic_state()
+def select_next_organic_post(posts: list, state: dict) -> Tuple[Optional[str], Optional[List[str]], Optional[str], str]:
+    """
+    Alternates between deep thesis sentences from articles and curated philosophical axioms.
+    Returns: (text, tags, key_hash, post_type)
+    """
+    posted = state.get("posted_snippets", {})
     
-    # Ingest publications
-    posts = fetch_from_rss()
-    if not posts:
-        posts = fetch_from_wp_api()
-        
-    if not posts:
-        print("[!] No publications available to extract snippets from.")
-        return 0
+    # 1. Search recent articles for high-depth thesis sentences
+    for post in posts:
+        content_source = post.get("content") or post.get("excerpt") or ""
+        candidates = extract_high_depth_snippets(content_source, post["title"])
+        for snippet, score in candidates:
+            s_hash = hashlib.sha256(snippet.encode("utf-8")).hexdigest()[:16]
+            if s_hash not in posted:
+                copy, tags = format_article_thesis(snippet, post["title"], post.get("categories", []))
+                return copy, tags, s_hash, f"article_thesis (score {score})"
+
+    # 2. Pull from Curated Intellectual & Philosophical Axioms pool
+    for axiom in CURATED_AXIOMS:
+        ax_hash = hashlib.sha256(axiom["text"].encode("utf-8")).hexdigest()[:16]
+        if ax_hash not in posted:
+            copy, tags = format_curated_axiom(axiom)
+            return copy, tags, ax_hash, f"curated_axiom ({axiom['category']})"
+
+    # 3. If all posted, recycle oldest curated axiom
+    fallback_axiom = CURATED_AXIOMS[abs(hash(str(state.get("last_run")))) % len(CURATED_AXIOMS)]
+    copy, tags = format_curated_axiom(fallback_axiom)
+    return copy, tags, hashlib.sha256(copy.encode("utf-8")).hexdigest()[:16], "recycled_axiom"
+
+def main() -> int:
+    print("=== Autonomous Organic Insights & Philosophical Broadcaster ===")
+    state = load_organic_state()
+    posts = fetch_latest_posts()
 
     bsky_user = os.getenv("BSKY_IDENTIFIER", "").strip()
     bsky_pass = os.getenv("BSKY_APP_PASSWORD", "").strip()
-    masto_instance = os.getenv("MASTODON_INSTANCE_URL", "https://mastodon.social").strip()
+    masto_instance = normalize_mastodon_url(os.getenv("MASTODON_INSTANCE_URL", "https://mastodon.social"))
     masto_token = os.getenv("MASTODON_ACCESS_TOKEN", "").strip()
 
     force_dry_run = "--dry-run" in sys.argv
@@ -188,34 +202,13 @@ def main() -> int:
     if dry_run:
         print("[!] Running in PREVIEW / DRY-RUN mode.")
 
-    # Find candidate snippet from articles
-    selected_snippet = None
-    selected_post = None
+    organic_text, tags, item_key, post_type = select_next_organic_post(posts, state)
 
-    for post in posts:
-        content_source = post.get("content") or post.get("excerpt") or ""
-        snippets = extract_meaningful_snippets(content_source, post["title"])
-        for s in snippets:
-            s_hash = hashlib.sha256(s.encode("utf-8")).hexdigest()[:16]
-            if s_hash not in state.get("posted_snippets", {}):
-                selected_snippet = s
-                selected_post = post
-                snippet_key = s_hash
-                break
-        if selected_snippet:
-            break
-
-    if not selected_snippet:
-        print("[*] All current snippets have been posted previously. Archive exhausted.")
+    if not organic_text:
+        print("[!] No candidate insights available.")
         return 0
 
-    organic_text, tags = format_organic_post(
-        selected_snippet,
-        selected_post["title"],
-        selected_post.get("categories", [])
-    )
-
-    print(f"\nSelected Insight from: '{selected_post['title']}':")
+    print(f"\n[Generated Insight Type: {post_type}]")
     print("--------------------------------------------------")
     print(organic_text)
     print(f"(Length: {len(organic_text)} chars)")
@@ -225,7 +218,6 @@ def main() -> int:
         print("[DRY-RUN] Insight post validated successfully.")
         return 0
 
-    # Live Broadcast
     success_any = False
     now_iso = datetime.now(timezone.utc).isoformat()
     
@@ -239,17 +231,16 @@ def main() -> int:
             success_any = True
 
     if success_any:
-        state["posted_snippets"][snippet_key] = {
-            "snippet": selected_snippet[:100],
-            "title": selected_post["title"],
+        state["posted_snippets"][item_key] = {
+            "text": organic_text[:120],
+            "type": post_type,
             "timestamp": now_iso
         }
         state["last_run"] = now_iso
         save_organic_state(state)
-        print("[OK] Organic state updated.")
+        print(f"[OK] Organic state updated ({post_type}).")
 
     return 0
 
 if __name__ == "__main__":
     sys.exit(main())
-
