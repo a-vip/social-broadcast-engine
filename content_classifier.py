@@ -156,3 +156,4 @@ def build_utm_link(base_url: str, platform: str) -> str:
     """Appends UTM campaign parameters for attribution in web analytics."""
     clean_url = base_url.split("?")[0].rstrip("/") + "/"
     return f"{clean_url}?utm_source={platform}&utm_medium=social&utm_campaign=syndication"
+
