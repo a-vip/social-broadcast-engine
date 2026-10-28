@@ -53,6 +53,27 @@ def save_state(state: dict):
     with open(STATE_FILE, "w", encoding="utf-8") as f:
         json.dump(state, f, indent=2, ensure_ascii=False)
 
+from urllib.parse import urlparse
+
+def normalize_mastodon_url(raw_url: str) -> str:
+    """Normalizes any Mastodon input (domain, profile link, or subpath) to https://<domain>."""
+    if not raw_url:
+        return "https://mastodon.social"
+    clean = raw_url.strip()
+    if not clean.startswith("http://") and not clean.startswith("https://"):
+        clean = "https://" + clean
+    try:
+        parsed = urlparse(clean)
+        if parsed.netloc:
+            return f"{parsed.scheme}://{parsed.netloc}".rstrip("/")
+    except Exception:
+        pass
+    return "https://mastodon.social"
+
+def clean_xml_namespaces(xml_str: str) -> str:
+    """Strips XML prefixes (e.g. content:encoded -> encoded) to prevent 'unbound prefix' parse errors."""
+    return re.sub(r"</?([a-zA-Z0-9_-]+):", lambda m: "</" if m.group(0).startswith("</") else "<", xml_str)
+
 def clean_text(raw_html: str) -> str:
     if not raw_html:
         return ""
@@ -68,10 +89,11 @@ def fetch_from_rss() -> List[Dict[str, Any]]:
     try:
         req = urllib.request.Request(RSS_FEED_URL, headers=BROWSER_HEADERS)
         with urllib.request.urlopen(req, timeout=20) as resp:
-            xml_content = resp.read()
-            root = ET.fromstring(xml_content)
+            raw_xml = resp.read().decode("utf-8", errors="replace")
+            clean_xml = clean_xml_namespaces(raw_xml)
+            root = ET.fromstring(clean_xml)
             posts = []
-            for item in root.findall("./channel/item"):
+            for item in root.findall(".//item"):
                 guid_elem = item.find("guid")
                 guid = guid_elem.text.strip() if guid_elem is not None and guid_elem.text else ""
                 
@@ -81,7 +103,7 @@ def fetch_from_rss() -> List[Dict[str, Any]]:
                 link_elem = item.find("link")
                 link = link_elem.text.strip() if link_elem is not None and link_elem.text else ""
                 
-                content_elem = item.find("{http://purl.org/rss/1.0/modules/content/}encoded")
+                content_elem = item.find("encoded")
                 content = content_elem.text if content_elem is not None and content_elem.text else ""
                 
                 desc_elem = item.find("description")
@@ -307,7 +329,7 @@ def post_to_mastodon(instance_url: str, access_token: str, text: str, idempotenc
     if not instance_url or not access_token:
         return False
         
-    base_instance = instance_url.strip().rstrip("/")
+    base_instance = normalize_mastodon_url(instance_url)
     status_url = f"{base_instance}/api/v1/statuses"
     
     payload = {

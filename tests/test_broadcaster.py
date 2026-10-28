@@ -56,6 +56,20 @@ class TestContentClassifier(unittest.TestCase):
         self.assertTrue(bsky_link.startswith("https://aviperera.com/switchblade-300-600/"))
 
 class TestBroadcasterEngine(unittest.TestCase):
+    def test_normalize_mastodon_url(self):
+        self.assertEqual(broadcast_engine.normalize_mastodon_url("https://mastodon.social/@username"), "https://mastodon.social")
+        self.assertEqual(broadcast_engine.normalize_mastodon_url("https://mastodon.social/web/@avi"), "https://mastodon.social")
+        self.assertEqual(broadcast_engine.normalize_mastodon_url("https://mastodon.social/api/v1/statuses"), "https://mastodon.social")
+        self.assertEqual(broadcast_engine.normalize_mastodon_url("mastodon.social"), "https://mastodon.social")
+        self.assertEqual(broadcast_engine.normalize_mastodon_url("https://fosstodon.org/"), "https://fosstodon.org")
+
+    def test_clean_xml_namespaces(self):
+        raw = "<rss><channel><item><content:encoded>Sample text</content:encoded><slash:comments>0</slash:comments></item></channel></rss>"
+        cleaned = broadcast_engine.clean_xml_namespaces(raw)
+        self.assertIn("<encoded>", cleaned)
+        self.assertIn("<comments>", cleaned)
+        self.assertNotIn("content:", cleaned)
+
     def test_clean_text(self):
         raw = "<p>Hello &amp; welcome to &#8217;AI Governance&#8217;!</p>"
         cleaned = broadcast_engine.clean_text(raw)
