@@ -174,6 +174,23 @@ class TestOrganicBroadcaster(unittest.TestCase):
         self.assertTrue(len(tags) > 0)
         self.assertIn("curated_axiom", ptype)
 
+    @patch("urllib.request.urlopen")
+    def test_post_organic_to_bluesky(self, mock_urlopen):
+        mock_auth_resp = MagicMock()
+        mock_auth_resp.read.return_value = json.dumps({"accessJwt": "test_jwt", "did": "did:plc:test"}).encode("utf-8")
+        mock_post_resp = MagicMock()
+        mock_post_resp.getcode.return_value = 200
+
+        mock_urlopen.return_value.__enter__.side_effect = [mock_auth_resp, mock_post_resp]
+
+        success = organic_broadcaster.post_organic_to_bluesky(
+            identifier="test_handle",
+            password="test_pass",
+            text="High level philosophical insight text #AIGovernance",
+            tags=["#AIGovernance"]
+        )
+        self.assertTrue(success)
+
     def test_format_article_thesis(self):
         snippet = "The velocity of autonomous decision-making demands clear threshold definitions before deployment, not after."
         title = "Switchblade 300 and 600"
