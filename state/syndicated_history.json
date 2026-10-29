@@ -35,7 +35,16 @@
         "mastodon": true
       },
       "timestamp": "2026-10-28T20:43:51.584880+00:00"
+    },
+    "https://aviperera.com/?p=4680": {
+      "title": "PHP2Shell: How an AI-Assisted Discovery Pulled Governments Offline, and What It Means for Law and Global Security",
+      "link": "https://aviperera.com/php2shell-ai-discovered-php-vulnerability/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": false
+      },
+      "timestamp": "2026-10-29T04:03:09.593485+00:00"
     }
   },
-  "last_run": "2026-10-28T20:43:53.167967+00:00"
+  "last_run": "2026-10-29T04:03:11.189885+00:00"
 }
