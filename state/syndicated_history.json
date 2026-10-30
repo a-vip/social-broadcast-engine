@@ -71,7 +71,16 @@
         "mastodon": true
       },
       "timestamp": "2026-10-30T14:46:45.693388+00:00"
+    },
+    "https://aviperera.com/?p=4633": {
+      "title": "Character.AI’s Bankruptcy Was Foreseeable: What the Collapse of an AI Companion Giant Means",
+      "link": "https://aviperera.com/character-ai-bankruptcy/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-10-30T20:20:08.308590+00:00"
     }
   },
-  "last_run": "2026-10-30T14:46:46.867912+00:00"
+  "last_run": "2026-10-30T20:20:09.948964+00:00"
 }
