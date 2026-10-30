@@ -53,7 +53,16 @@
         "mastodon": true
       },
       "timestamp": "2026-10-29T20:48:54.184085+00:00"
+    },
+    "https://aviperera.com/?p=4584": {
+      "title": "Norinco Fuxi and NUDT Combat Humanoids",
+      "link": "https://aviperera.com/norinco-fuxi-and-nudt-combat-humanoids/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-10-30T04:04:14.787786+00:00"
     }
   },
-  "last_run": "2026-10-29T20:48:55.740856+00:00"
+  "last_run": "2026-10-30T04:04:16.028884+00:00"
 }
