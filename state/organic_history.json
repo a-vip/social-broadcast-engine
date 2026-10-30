@@ -54,7 +54,12 @@
       "text": "When Microsoft’s Tay chatbot generated hate speech within 24 hours of launch in 2016, it was treated as an experiment go",
       "type": "curated_axiom (ai_governance)",
       "timestamp": "2026-10-30T17:38:27.811349+00:00"
+    },
+    "2525575830560746": {
+      "text": "Unlike trade rules that prioritize market safety, genuine AI governance must center on human rights, democracy, and the ",
+      "type": "curated_axiom (international_law)",
+      "timestamp": "2026-10-30T23:26:09.571547+00:00"
     }
   },
-  "last_run": "2026-10-30T17:38:27.811349+00:00"
+  "last_run": "2026-10-30T23:26:09.571547+00:00"
 }
