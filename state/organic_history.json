@@ -59,7 +59,12 @@
       "text": "Unlike trade rules that prioritize market safety, genuine AI governance must center on human rights, democracy, and the ",
       "type": "curated_axiom (international_law)",
       "timestamp": "2026-10-30T23:26:09.571547+00:00"
+    },
+    "94213aa69eaa7a80": {
+      "text": "The defining institutional challenge of our generation is latency: regulation and jurisprudence advance at the pace of p",
+      "type": "curated_axiom (institutional_governance)",
+      "timestamp": "2026-10-31T10:08:17.055292+00:00"
     }
   },
-  "last_run": "2026-10-30T23:26:09.571547+00:00"
+  "last_run": "2026-10-31T10:08:17.055292+00:00"
 }
