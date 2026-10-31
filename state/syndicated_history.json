@@ -80,7 +80,16 @@
         "mastodon": true
       },
       "timestamp": "2026-10-30T20:20:08.308590+00:00"
+    },
+    "https://aviperera.com/?p=4604": {
+      "title": "US Execution Global Online Livestream and Law",
+      "link": "https://aviperera.com/hasan-execution-livestream-law/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-10-31T03:48:38.598060+00:00"
     }
   },
-  "last_run": "2026-10-30T20:20:09.948964+00:00"
+  "last_run": "2026-10-31T03:48:39.697437+00:00"
 }
