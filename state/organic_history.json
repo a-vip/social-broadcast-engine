@@ -74,7 +74,12 @@
       "text": "Algorithmic bias is rarely a technical bug; it is an evidentiary mirror of historical systemic disparities codified into",
       "type": "curated_axiom (ai_ethics_fairness)",
       "timestamp": "2026-10-31T22:59:02.518321+00:00"
+    },
+    "c985d6f523bc6787": {
+      "text": "Sovereignty in the 21st century is defined not merely by territorial borders, but by whether a society retains the democ",
+      "type": "curated_axiom (sovereign_compute)",
+      "timestamp": "2026-11-01T10:59:08.664701+00:00"
     }
   },
-  "last_run": "2026-10-31T22:59:02.518321+00:00"
+  "last_run": "2026-11-01T10:59:08.664701+00:00"
 }
