@@ -84,7 +84,12 @@
       "text": "Global AI governance requires an impartial scientific consensus comparable to the IPCC for climate. Without shared empir",
       "type": "curated_axiom (un_global_compact)",
       "timestamp": "2026-11-01T17:32:16.132814+00:00"
+    },
+    "e71e0861eed636b8": {
+      "text": "Combating generative synthetic deception and deepfakes requires moving beyond reactive detection toward statutory duties",
+      "type": "curated_axiom (online_safety_verification)",
+      "timestamp": "2026-11-01T23:18:55.048234+00:00"
     }
   },
-  "last_run": "2026-11-01T17:32:16.132814+00:00"
+  "last_run": "2026-11-01T23:18:55.048234+00:00"
 }
