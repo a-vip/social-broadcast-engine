@@ -134,7 +134,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-01T20:06:16.178643+00:00"
+    },
+    "https://aviperera.com/?p=4489": {
+      "title": "Unitree B2 Combat Mod",
+      "link": "https://aviperera.com/unitree-b2-combat-mod/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-02T04:00:34.355692+00:00"
     }
   },
-  "last_run": "2026-11-01T20:06:17.586964+00:00"
+  "last_run": "2026-11-02T04:00:35.556253+00:00"
 }
