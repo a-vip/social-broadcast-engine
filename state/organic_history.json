@@ -89,7 +89,12 @@
       "text": "Combating generative synthetic deception and deepfakes requires moving beyond reactive detection toward statutory duties",
       "type": "curated_axiom (online_safety_verification)",
       "timestamp": "2026-11-01T23:18:55.048234+00:00"
+    },
+    "11b4ebf0362b0daa": {
+      "text": "The rapid expansion of the digital knowledge economy frequently masks new asymmetries between capital-exporting hubs and",
+      "type": "curated_axiom (digital_economy_society)",
+      "timestamp": "2026-11-02T11:57:21.670929+00:00"
     }
   },
-  "last_run": "2026-11-01T23:18:55.048234+00:00"
+  "last_run": "2026-11-02T11:57:21.670929+00:00"
 }
