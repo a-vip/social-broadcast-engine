@@ -161,7 +161,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-03T05:02:16.977500+00:00"
+    },
+    "https://aviperera.com/?p=4458": {
+      "title": "MQ-9 Reaper",
+      "link": "https://aviperera.com/mq-9-reaper/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-03T15:45:22.585911+00:00"
     }
   },
-  "last_run": "2026-11-03T05:02:18.331326+00:00"
+  "last_run": "2026-11-03T15:45:23.943093+00:00"
 }
