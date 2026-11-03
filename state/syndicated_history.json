@@ -170,7 +170,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-03T15:45:22.585911+00:00"
+    },
+    "https://aviperera.com/?p=4388": {
+      "title": "Abliteration.ai and the End of the Guardrail Assumption: What It Means for International Security",
+      "link": "https://aviperera.com/abliteration-ai-removing-guardrails-international-security/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-03T21:27:20.282511+00:00"
     }
   },
-  "last_run": "2026-11-03T15:45:23.943093+00:00"
+  "last_run": "2026-11-03T21:27:22.114268+00:00"
 }
