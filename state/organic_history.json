@@ -99,7 +99,12 @@
       "text": "In an era of hyper-abundant synthetic text, genuine intellectual value accrues to primary source verification, rigorous ",
       "type": "curated_axiom (research_epistemology)",
       "timestamp": "2026-11-02T21:28:19.845885+00:00"
+    },
+    "54e4b0dee955a358": {
+      "text": "When algorithmic systems are deployed in high-stakes domains like healthcare or credit, explainability is not an enginee",
+      "type": "curated_axiom (ai_ethics_healthcare)",
+      "timestamp": "2026-11-03T11:33:39.892626+00:00"
     }
   },
-  "last_run": "2026-11-02T21:28:19.845885+00:00"
+  "last_run": "2026-11-03T11:33:39.892626+00:00"
 }
