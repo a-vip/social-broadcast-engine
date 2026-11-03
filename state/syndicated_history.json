@@ -152,7 +152,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-02T17:43:42.750108+00:00"
+    },
+    "https://aviperera.com/?p=4466": {
+      "title": "Vision 60 Q-UGV",
+      "link": "https://aviperera.com/vision-60-q-ugv/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-03T05:02:16.977500+00:00"
     }
   },
-  "last_run": "2026-11-02T17:43:43.395487+00:00"
+  "last_run": "2026-11-03T05:02:18.331326+00:00"
 }
