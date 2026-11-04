@@ -188,7 +188,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-04T04:35:07.786787+00:00"
+    },
+    "https://aviperera.com/?p=4371": {
+      "title": "Magnifica Humanitas: Reading Pope Leo XIV’s AI Encyclical",
+      "link": "https://aviperera.com/magnifica-humanitas-ai-encyclical-commentary/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-04T15:55:20.405184+00:00"
     }
   },
-  "last_run": "2026-11-04T04:35:09.437073+00:00"
+  "last_run": "2026-11-04T15:55:21.774328+00:00"
 }
