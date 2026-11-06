@@ -224,7 +224,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-06T04:50:09.191156+00:00"
+    },
+    "https://aviperera.com/?p=4342": {
+      "title": "The Governance Gap: UN’s 2026 Science and Technology Report",
+      "link": "https://aviperera.com/un-2026-science-and-technology-report/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-06T15:36:50.584582+00:00"
     }
   },
-  "last_run": "2026-11-06T04:50:10.181945+00:00"
+  "last_run": "2026-11-06T15:36:52.306169+00:00"
 }
