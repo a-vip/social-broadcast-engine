@@ -215,7 +215,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-05T04:50:06.631535+00:00"
+    },
+    "https://aviperera.com/?p=4358": {
+      "title": "Autonomous Weapons Are Not the Moral Choice",
+      "link": "https://aviperera.com/autonomous-weapons-are-not-the-moral-choice/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-06T04:50:09.191156+00:00"
     }
   },
-  "last_run": "2026-11-05T04:50:07.820234+00:00"
+  "last_run": "2026-11-06T04:50:10.181945+00:00"
 }
