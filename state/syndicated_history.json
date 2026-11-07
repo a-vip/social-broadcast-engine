@@ -260,7 +260,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-07T14:37:17.998256+00:00"
+    },
+    "https://aviperera.com/?p=4283": {
+      "title": "Four Objectives, Zero Wins: Mearsheimer’s Reckoning With America’s Iran War",
+      "link": "https://aviperera.com/mearsheimer-iran-war-2026-analysis/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-07T19:49:17.120140+00:00"
     }
   },
-  "last_run": "2026-11-07T14:37:20.511095+00:00"
+  "last_run": "2026-11-07T19:49:18.446970+00:00"
 }
