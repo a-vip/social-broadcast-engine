@@ -287,7 +287,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-08T14:43:02.921015+00:00"
+    },
+    "https://aviperera.com/?p=4152": {
+      "title": "Schema Sovereignty & AI Citations: Death of Blue Links",
+      "link": "https://aviperera.com/schema-sovereignty-ai-citations-schema-seo/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-08T20:06:40.675335+00:00"
     }
   },
-  "last_run": "2026-11-08T14:43:04.932253+00:00"
+  "last_run": "2026-11-08T20:06:42.017751+00:00"
 }
