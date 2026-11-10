@@ -314,7 +314,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-10T05:43:34.077524+00:00"
+    },
+    "https://aviperera.com/?p=4106": {
+      "title": "The Ghost in the Code: Why Autonomous Weapons Defy Human Law",
+      "link": "https://aviperera.com/autonomous-weapons-ethics-accountability-gap/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-10T16:02:02.777634+00:00"
     }
   },
-  "last_run": "2026-11-10T05:43:35.933750+00:00"
+  "last_run": "2026-11-10T16:02:04.010111+00:00"
 }
