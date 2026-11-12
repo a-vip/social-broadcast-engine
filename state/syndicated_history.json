@@ -350,7 +350,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-11T22:26:08.656169+00:00"
+    },
+    "https://aviperera.com/?p=3826": {
+      "title": "Clearview AI",
+      "link": "https://aviperera.com/clearview-ai/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-12T05:29:40.193185+00:00"
     }
   },
-  "last_run": "2026-11-11T22:26:10.080429+00:00"
+  "last_run": "2026-11-12T05:29:41.281412+00:00"
 }
