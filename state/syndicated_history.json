@@ -368,7 +368,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-12T16:30:46.522633+00:00"
+    },
+    "https://aviperera.com/?p=3793": {
+      "title": "Palantir Project Maven",
+      "link": "https://aviperera.com/palantir-project-maven/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-13T04:46:49.161746+00:00"
     }
   },
-  "last_run": "2026-11-12T16:30:48.050936+00:00"
+  "last_run": "2026-11-13T04:46:51.375845+00:00"
 }
