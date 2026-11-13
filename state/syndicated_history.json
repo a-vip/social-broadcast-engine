@@ -377,7 +377,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-13T04:46:49.161746+00:00"
+    },
+    "https://aviperera.com/?p=3789": {
+      "title": "MQ-28 Ghost Bat",
+      "link": "https://aviperera.com/mq-28-ghost-bat/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-13T15:52:17.348515+00:00"
     }
   },
-  "last_run": "2026-11-13T04:46:51.375845+00:00"
+  "last_run": "2026-11-13T15:52:19.284415+00:00"
 }
