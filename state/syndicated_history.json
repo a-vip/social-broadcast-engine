@@ -395,7 +395,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-13T21:46:28.972708+00:00"
+    },
+    "https://aviperera.com/?p=3765": {
+      "title": "The Consensus Trap: How Five Nations Quietly Derailed the Global Ban on Killer Robots",
+      "link": "https://aviperera.com/consensus-trap-global-ban-killer-robots/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-14T04:40:30.737907+00:00"
     }
   },
-  "last_run": "2026-11-13T21:46:30.233841+00:00"
+  "last_run": "2026-11-14T04:40:32.383548+00:00"
 }
