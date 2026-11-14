@@ -404,7 +404,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-14T04:40:30.737907+00:00"
+    },
+    "https://aviperera.com/?p=3762": {
+      "title": "The Algorithmic Battlefield: 5 Takeaways from the Silent Revolution in Warfare",
+      "link": "https://aviperera.com/algorithmic-battlefield-ai-modern-warfare/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-14T14:43:10.015070+00:00"
     }
   },
-  "last_run": "2026-11-14T04:40:32.383548+00:00"
+  "last_run": "2026-11-14T14:43:11.765024+00:00"
 }
