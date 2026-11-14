@@ -413,7 +413,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-14T14:43:10.015070+00:00"
+    },
+    "https://aviperera.com/?p=3785": {
+      "title": "Palantir Gotham",
+      "link": "https://aviperera.com/palantir-gotham/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-14T20:20:26.505546+00:00"
     }
   },
-  "last_run": "2026-11-14T14:43:11.765024+00:00"
+  "last_run": "2026-11-14T20:20:27.909392+00:00"
 }
