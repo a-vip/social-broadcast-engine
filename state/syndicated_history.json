@@ -440,7 +440,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-15T15:14:25.933277+00:00"
+    },
+    "https://aviperera.com/?p=3750": {
+      "title": "The 20-Second Kill Chain: 5 Chilling Realities of the New AI Warfare",
+      "link": "https://aviperera.com/ai-warfare-20-second-kill-chain/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-15T20:45:06.608988+00:00"
     }
   },
-  "last_run": "2026-11-15T15:14:27.261503+00:00"
+  "last_run": "2026-11-15T20:45:07.853743+00:00"
 }
