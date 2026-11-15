@@ -431,7 +431,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-15T04:30:47.262824+00:00"
+    },
+    "https://aviperera.com/?p=3759": {
+      "title": "The Digital Dragnet: 4 Surprising Ways the U.S. Immigration System Became a Fully Automated Machine",
+      "link": "https://aviperera.com/automated-us-immigration-system-dragnet/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-15T15:14:25.933277+00:00"
     }
   },
-  "last_run": "2026-11-15T04:30:48.541297+00:00"
+  "last_run": "2026-11-15T15:14:27.261503+00:00"
 }
