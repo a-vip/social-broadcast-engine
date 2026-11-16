@@ -458,7 +458,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-16T04:27:33.717072+00:00"
+    },
+    "https://aviperera.com/?p=3280": {
+      "title": "P.S. Killer Kamikaze Drone",
+      "link": "https://aviperera.com/p-s-killer-kamikaze-drone/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-16T17:49:47.787175+00:00"
     }
   },
-  "last_run": "2026-11-16T04:27:34.857063+00:00"
+  "last_run": "2026-11-16T17:49:49.064892+00:00"
 }
