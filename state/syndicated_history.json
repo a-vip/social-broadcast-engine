@@ -476,7 +476,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-17T06:13:01.077328+00:00"
+    },
+    "https://aviperera.com/?p=3285": {
+      "title": "X5 Attack Drone",
+      "link": "https://aviperera.com/x5-attack-drone/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-17T17:19:12.174948+00:00"
     }
   },
-  "last_run": "2026-11-17T06:13:02.632202+00:00"
+  "last_run": "2026-11-17T17:19:13.950253+00:00"
 }
