@@ -494,7 +494,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-18T05:40:36.642420+00:00"
+    },
+    "https://aviperera.com/?p=3289": {
+      "title": "MBDA Spear-3 Missile – Orchestrike AI",
+      "link": "https://aviperera.com/mbda-spear-3-missile-orchestrike-ai/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-18T16:53:47.987819+00:00"
     }
   },
-  "last_run": "2026-11-18T05:40:37.297832+00:00"
+  "last_run": "2026-11-18T16:53:48.641390+00:00"
 }
