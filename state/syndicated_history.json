@@ -503,7 +503,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-18T16:53:47.987819+00:00"
+    },
+    "https://aviperera.com/?p=3296": {
+      "title": "S-71M Attack Drone",
+      "link": "https://aviperera.com/s-71m-attack-drone/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-19T05:39:52.675896+00:00"
     }
   },
-  "last_run": "2026-11-18T16:53:48.641390+00:00"
+  "last_run": "2026-11-19T05:39:54.365989+00:00"
 }
