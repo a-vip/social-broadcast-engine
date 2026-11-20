@@ -530,7 +530,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-20T05:27:48.718426+00:00"
+    },
+    "https://aviperera.com/?p=3306": {
+      "title": "Kratos UTAP 22 Mako",
+      "link": "https://aviperera.com/kratos-utap-22-mako/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-20T16:38:34.016697+00:00"
     }
   },
-  "last_run": "2026-11-20T05:27:49.917169+00:00"
+  "last_run": "2026-11-20T16:38:34.822347+00:00"
 }
