@@ -548,7 +548,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-21T05:20:34.162011+00:00"
+    },
+    "https://aviperera.com/?p=3313": {
+      "title": "Israel Aerospace Industries Harpy UAV",
+      "link": "https://aviperera.com/israel-aerospace-industries-harpy-uav/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-21T15:52:10.802214+00:00"
     }
   },
-  "last_run": "2026-11-21T05:20:35.166069+00:00"
+  "last_run": "2026-11-21T15:52:12.246969+00:00"
 }
