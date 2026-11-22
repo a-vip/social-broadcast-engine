@@ -575,7 +575,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-22T04:45:47.888850+00:00"
+    },
+    "https://aviperera.com/?p=3325": {
+      "title": "Kalashnikov ZALA Lancet-3",
+      "link": "https://aviperera.com/kalashnikov-zala-lancet-3/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-22T15:51:50.403436+00:00"
     }
   },
-  "last_run": "2026-11-22T04:45:49.928144+00:00"
+  "last_run": "2026-11-22T15:51:52.129704+00:00"
 }
