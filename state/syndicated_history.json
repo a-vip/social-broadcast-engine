@@ -566,7 +566,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-21T21:25:27.113632+00:00"
+    },
+    "https://aviperera.com/?p=3321": {
+      "title": "Elbit LANIUS UAV",
+      "link": "https://aviperera.com/elbit-lanius-uav/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-22T04:45:47.888850+00:00"
     }
   },
-  "last_run": "2026-11-21T21:25:28.190615+00:00"
+  "last_run": "2026-11-22T04:45:49.928144+00:00"
 }
