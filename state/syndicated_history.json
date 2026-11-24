@@ -611,7 +611,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-23T19:45:18.895509+00:00"
+    },
+    "https://aviperera.com/?p=3339": {
+      "title": "Hanwha Arion-SMET",
+      "link": "https://aviperera.com/hanwha-arion-smet/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-24T08:03:58.319950+00:00"
     }
   },
-  "last_run": "2026-11-23T19:45:21.176112+00:00"
+  "last_run": "2026-11-24T08:03:59.175119+00:00"
 }
