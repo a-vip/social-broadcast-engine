@@ -620,7 +620,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-24T08:03:58.319950+00:00"
+    },
+    "https://aviperera.com/?p=3343": {
+      "title": "Anduril Roadrunner",
+      "link": "https://aviperera.com/anduril-roadrunner/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-25T00:17:39.744307+00:00"
     }
   },
-  "last_run": "2026-11-24T08:03:59.175119+00:00"
+  "last_run": "2026-11-25T00:17:40.603955+00:00"
 }
