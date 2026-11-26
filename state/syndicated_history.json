@@ -647,7 +647,16 @@
         "mastodon": true
       },
       "timestamp": "2026-11-26T06:33:27.187462+00:00"
+    },
+    "https://aviperera.com/?p=3052": {
+      "title": "The Myth of the “Third World”: Why We Must Abandon the Language of Empire",
+      "link": "https://aviperera.com/myth-of-the-third-world/",
+      "platforms": {
+        "bluesky": true,
+        "mastodon": true
+      },
+      "timestamp": "2026-11-26T18:03:48.074860+00:00"
     }
   },
-  "last_run": "2026-11-26T06:33:28.850004+00:00"
+  "last_run": "2026-11-26T18:03:49.552540+00:00"
 }
